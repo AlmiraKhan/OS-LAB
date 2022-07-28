@@ -1,36 +1,56 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+
 int main()
 {
-	int pid, pid1, pid2;
-	pid = fork();
-	if (pid == 0) {
-		sleep(6);
-		printf("child[1] --> pid = %d and ppid = %d\n",
-			getpid(), getppid());
-	}
-
-	else {
-		pid1 = fork();
-		if (pid1 == 0) {
-			sleep(4);
-			printf("child[2] --> pid = %d and ppid = %d\n",
-				getpid(), getppid());
-		}
-		else {
-			pid2 = fork();
-			if (pid2 == 0) {
-				printf("child[3] --> pid = %d and ppid = %d\n",
-					getpid(), getppid());
-			}
-			else {
-				sleep(7);
-				printf(" parent --> pid = %d\n", getpid());
-			}
-		}
-	}
-
-	return 0;
+    pid_t b,c,d;
+    b=fork();
+    if(b==0)
+    {
+        sleep(3);
+        printf("child 1-->PID:%d\n",getpid());
+        printf("child 1-->PPID:%d\n",getppid());
+         exit(0);
+    }
+    else if(b<0)
+                printf("Failed to create child process\n");
+    else
+    {
+        c=fork();
+        if(c==0)
+        {
+            sleep(2);
+            printf("child 2-->PID:%d\n",getpid());
+            printf("child 2-->PPID:%d\n",getppid());
+             exit(0);
+        }
+        else if(c<0)
+                printf("Failed to create child process\n");
+        else
+        {
+            d=fork();
+            if(d==0)
+            {
+                printf("child 3-->PID:%d\n",getpid());
+                printf("child 3-->PPID:%d\n",getppid());
+                 exit(0);
+            }
+            else if(d<0)
+                printf("Failed to create child process\n");
+            else
+            {
+                sleep(5);
+                printf("parent-->PID:%d\n",getpid());
+                printf("parent-->PPID:%d\n",getppid());
+                exit(0);
+            }
+        }
+    }
+    
+    return 0;
+    
 }
+

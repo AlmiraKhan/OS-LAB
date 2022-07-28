@@ -1,113 +1,122 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
 
 int main()
 {
-    pid_t p1, p2, p3, p4,p5,p6,pc,pg;
+    pid_t pb,pc,pd,pe,pf,pg,ph,pi;
+    
     printf("Process A here\n");
-    printf("Parent process ID:%d\n",getppid());
-    printf("My process ID:%d\n", getpid());
-
-    p1 = fork();
+    printf("My PID: %d\n",getpid());
+    printf("Parent PID: %d\n",getppid());
+    
+    pb=fork();
     wait(NULL);
-    if (p1 < 0)
+    if(pb<0)
         printf("Failed to create child process\n");
-    else if (p1 == 0)
+    else if(pb==0)
     {
         printf("Process B here\n");
-        printf("Parent process ID:%d\n", getppid());
-        printf("My process ID:%d\n", getpid());
-        p2 = fork();
+        printf("My PID: %d\n",getpid());
+        printf("Parent PID: %d\n",getppid());
+        
+        pd=fork();
         wait(NULL);
-                if (p2 < 0)
+        if(pd<0)
             printf("Failed to create child process\n");
-        else if (p2 == 0)
+        else if(pd==0)
         {
             printf("Process D here\n");
-            printf("Parent process ID:%d\n", getppid());
-            printf("My process ID:%d\n", getpid());
-            p3 = fork();
+            printf("My PID: %d\n",getpid());
+            printf("Parent PID: %d\n",getppid());
+            
+            ph=fork();
             wait(NULL);
-            if (p3 < 0)
+            if(ph<0)
                 printf("Failed to create child process\n");
-            else if (p3 == 0)
+            else if(ph==0)
             {
                 printf("Process H here\n");
-                printf("Parent process ID:%d\n", getppid());
-                printf("My process ID:%d\n", getpid());
-                p4= fork();
+                printf("My PID: %d\n",getpid());
+                printf("Parent PID: %d\n",getppid());
+                
+                pi=fork();
                 wait(NULL);
-                if (p4 < 0)
+                if(pi<0)
                     printf("Failed to create child process\n");
-                else if (p4 == 0)
+                else if(pi==0)
                 {
                     printf("Process I here\n");
-                    printf("Parent process ID:%d\n", getppid());
-                    printf("My process ID:%d\n", getpid());
+                    printf("My PID: %d\n",getpid());
+                    printf("Parent PID: %d\n",getppid());
+                    
                     exit(0);
                 }
                 exit(0);
-                
-                
             }
-            exit(0);
-            
+            exit(0); 
         }
-
-        p5=fork();
+        
+        //else
+        //{
+        pe=fork();
         wait(NULL);
-        if (p5 < 0)
-                    printf("Failed to create child process\n");
-        else if (p5 == 0)
-                {
-                    printf("Process E here\n");
-                    printf("Parent process ID:%d\n", getppid());
-                    printf("My process ID:%d\n", getpid());
-                    exit(0);
-                }
-        p6=fork();
-        wait(NULL);
-        if (p6 < 0)
-                    printf("Failed to create child process\n");
-        else if (p6 == 0)
-                {
+        if(pe<0)
+            printf("Failed to create child process\n");
+           else if(pe==0)
+           {
+                printf("Process E here\n");
+                printf("My PID: %d\n",getpid());
+                printf("Parent PID: %d\n",getppid());
+                exit(0);
+               
+           }
+               pf=fork();
+               wait(NULL);
+               if(pf<0)
+               printf("Failed to create child process\n");
+               else if(pf==0)
+               {
                     printf("Process F here\n");
-                    printf("Parent process ID:%d\n", getppid());
-                    printf("My process ID:%d\n", getpid());
+                    printf("My PID: %d\n",getpid());
+                    printf("Parent PID: %d\n",getppid());
                     exit(0);
-                }
-        exit(0);
-        
-        
-        
+                   
+               }               
                 
+               
+          exit(0);
+          
+         //}
     }
-    pc=fork();
-    wait(NULL);
-    if(pc<0)
+    else
     {
-        printf("fail");
+        pc=fork();
+        wait(NULL);
+        if(pc<0)
+            printf("Failed to create child process\n");
+        else if(pc==0)
+        {
+             printf("Process C here\n");
+             printf("My PID: %d\n",getpid());
+             printf("Parent PID: %d\n",getppid());
+             
+             pg=fork();
+             wait(NULL);
+             if(pg<0)
+                printf("Failed to create child process\n");
+             else if(pg==0)
+             {
+                printf("Process G here\n");
+                 printf("My PID: %d\n",getpid());
+                 printf("Parent PID: %d\n",getppid());
+                 
+                 exit(0);
+             }
+             exit(0);
+        }
     }
-    else if(pc==0)
-    {
-                    printf("Process C here\n");
-                    printf("Parent process ID:%d\n", getppid());
-                    printf("My process ID:%d\n", getpid());
-                    pg=fork();
-                    wait(NULL);
-                    if(pg<0)
-                    {
-                        printf("fil");
-                    }
-                    else if (pg==0)
-                    {
-                        printf("Process G here\n");
-                    printf("Parent process ID:%d\n", getppid());
-                    printf("My process ID:%d\n", getpid());
-                    }
-    }
-    return 0;
 }
+
