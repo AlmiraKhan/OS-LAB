@@ -103,66 +103,81 @@ int main()
 		printf("\n");
 	}
 	int request[10];
-	int x;
+	int x,ch=1;
 	safe_seq();
-	printf("Enter the process name which needs additional resource:");
-	scanf("%d", &x);
+	while(ch==1)
+	{
 
-	for (i = 0; i < m; i++)
-	{
-		printf("Resource request for resource %d :", i + 1);
-		scanf("%d", &request[i]);
-	}
-	int flag1 = 0, flag2 = 0;
-	for (i = 0; i < m; i++)
-	{
-		if (request[i] > need[x][i])
-			flag1 = 1;
-	}
-	if (flag1 == 0)
-	{
+		printf("Enter the process name which needs additional resource:");
+		scanf("%d", &x);
+
 		for (i = 0; i < m; i++)
 		{
-			if (request[i] > avail[i])
-				flag2 = 1;
+			printf("Resource request for resource %d :", i + 1);
+			scanf("%d", &request[i]);
 		}
-		if (flag2 == 0)
+		int flag1 = 0, flag2 = 0;
+		for (i = 0; i < m; i++)
+		{
+			if (request[i] > need[x][i])
+			{	
+				flag1 = 1;
+				printf("The request cannot be allocated\n");
+			}
+		}
+		if (flag1 == 0)
 		{
 			for (i = 0; i < m; i++)
 			{
-				avail[i] -= request[i];
-				alloc[x][i] += request[i];
-				need[x][i] -= request[i];
-			}
-		}
-		printf("\nAvailable :");
-		for (j = 0; j < m; j++)
-			printf("\t%d", avail[j]);
-		printf("\nAllocation matrix:");
-		for (i = 0; i < n; i++)
-		{
-			printf("\n");
-			for (j = 0; j < m; j++)
-			{
-
-				printf("%d\t", alloc[i][j]);
-			}
-		}
-
-		printf("Need matrix:\n");
-		int need[n][m];
-		for (i = 0; i < n; i++)
-		{
-			printf("\n");
-			for (j = 0; j < m; j++)
-			{
+				if (request[i] > avail[i])
 				{
-					need[i][j] = max[i][j] - alloc[i][j];
-					printf("%d\t", need[i][j]);
+					flag2 = 1;
+					printf("Process has to wait\n");
+				}
+					
+			}
+			if (flag2 == 0)
+			{
+				for (i = 0; i < m; i++)
+				{
+					avail[i] -= request[i];
+					alloc[x][i] += request[i];
+					need[x][i] -= request[i];
 				}
 			}
+			printf("\nAvailable :");
+			for (j = 0; j < m; j++)
+				printf("\t%d", avail[j]);
+			printf("\nAllocation matrix:");
+			for (i = 0; i < n; i++)
+			{
+				printf("\n");
+				for (j = 0; j < m; j++)
+				{
+
+					printf("%d\t", alloc[i][j]);
+				}
+			}
+
+			printf("\nNeed matrix:\n");
+			int need[n][m];
+			for (i = 0; i < n; i++)
+			{
+				printf("\n");
+				for (j = 0; j < m; j++)
+				{
+					{
+						need[i][j] = max[i][j] - alloc[i][j];
+						printf("%d\t", need[i][j]);
+					}
+				}
+			}
+			safe_seq();
+			
 		}
-		safe_seq();
+		printf("Enter 1 to give more request:");
+		scanf("%d",&ch);
+	}
+	
 		return (0);
 	}
-}
